@@ -1,9 +1,9 @@
 ## Projektowanie i programowanie obiektowe
-### semestr III, kierunek Informatyka, Wydział Nauk Technicznych i Ekonomicznych, Collegium Witelona Uczelnia Państwowa
+Strona kursu dla semestru III na kierunku Informatyka na Wydziale Nauk Technicznych i Ekonomicznych w Collegium Witelona Uczelnia Państwowa.
 
 ### Spis treści
 1. [Wprowadzenie do pracowni programowania obiektowego](./classes/lab01.md)
-1. Klasy i obiekty
+1. [Klasy i obiekty](./classes/lab02.md)
 1. Hermetyzacja
 1. Konstruktory
 1. Dziedziczenie
