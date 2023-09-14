@@ -114,7 +114,7 @@ class Student
     String name
     String surname
     Boolean status = false
-    static String university = "Collegium Witelona
+    static String university = "Collegium Witelona"
 }
 ```
 
@@ -124,7 +124,7 @@ print Student::university
 # Collegium Witelona
 ```
 
-#### Analiza przykładowego zadania
+### Analiza przykładowego zadania
 Zadanie składa się z trzech części: klasy opisującej studenta, funkcji losującej imię oraz procesu dodania studenta do listy studentów:
 ```
 class Student
