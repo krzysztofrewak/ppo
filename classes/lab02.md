@@ -155,9 +155,9 @@ foreach(Student student in students) {
 ```
 
 Zadanie powinno być zrozumiałe przez wszystkich. Kolejno:
-* tworzona jest pusta kolekcja studentówl
-* następnie tworzony jest obiekt klasy `Student`l
-* następnie tenże student zyskuje losowane imię oraz nazwisko `Doe`l
+* tworzona jest pusta kolekcja studentów;
+* następnie tworzony jest obiekt klasy `Student`;
+* następnie tenże student zyskuje losowane imię oraz nazwisko `Doe`;
 * następnie tenże student dodawany jest do kolekcji;
 * na koniec lista wszystkich studentów jest wypisywana na ekranie.
 
@@ -184,7 +184,7 @@ Należy rozszerzyć program o następujące funkcjonalności:
 [43004] | Washington, Jane
 ```
 
-Wykonane zadanie należy dodać do swojego repozytorium w katalogu `lab2`.
+Wykonane zadanie należy dodać do swojego repozytorium w katalogu `lab02`.
 
 ### Uruchamianie zadań
 Wszystkie narzędzia są skonteneryzowane i gotowe do użycia bezpośrednio poprzez Dockera. Chętni studenci mogą oczywiście uruchamiać zadania w środowiskach lokalnych.
