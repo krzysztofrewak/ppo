@@ -4,7 +4,7 @@ Strona kursu dla semestru III na kierunku Informatyka na Wydziale Nauk Techniczn
 ### Spis treści
 1. [Wprowadzenie do pracowni programowania obiektowego](./classes/lab01.md)
 1. [Klasy i obiekty](./classes/lab02.md)
-1. Hermetyzacja
+1. [Hermetyzacja](./classes/lab03.md)
 1. Konstruktory
 1. Dziedziczenie
 1. Interfejsy
