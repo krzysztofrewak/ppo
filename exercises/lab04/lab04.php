@@ -4,7 +4,7 @@ class Dice
 {
     public function roll(): int
     {
-        return rand(0, 6);
+        return rand(1, 6);
     }
 }
 

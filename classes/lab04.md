@@ -75,24 +75,81 @@ Dice dice = new Dice(20)
 Opcja z publicznym polem i setterem na tym przykładzie jest na tyle problematyczna, że wszyscy programiści w projekcie będą musieli wiedzieć, że trzeba ich użyć. Program by się wykrzaczył, gdyby ktoś wywołał `roll()`, a `sides` nie zostałoby uprzednio ustanowione. Dlatego warto korzystać z ustawiania stanu obiektu poprzez konstruktor, ponieważ zmniejsza to możliwość popełnienia głupiego błędu. Bez odpowiedniej hermetyzacji nawet najlepiej opisany konstruktor nie zabezpieczy nas przed najgłupszym przeoczeniem.
 
 ### Analiza przykładowego zadania
-Zadanie składa się z trzech części: klasy opisującej gracza, funkcji losującej gracza spośród innych graczy oraz procesu dodania graczy i "pojedynkowania się" między nimi:
+Zadanie składa się z dwóch części: klas opisujących kostkę, gracza i samą grę oraz procesu inicjalizacji i uruchomienia gry:
 ```
 class Dice
 {
+    public int roll() {
+        return rand(1, 6)
+    }
+}
+
+class Player
+{
+    public String name
+    
+    public Player(String name) {
+        this.name = name
+    }
+}
+
+class Game
+{
+    public HashMap<Integer, Integer> fields = []
+    public Collection<Player> = []
+    public Dice dice
+    
+    foreach(Player player, int index in players) {
+        this.fields.add(index, 0)
+    }
+    
+    public void run() {
+        Player winner = null
+        
+        while(winner === null) {
+            foreach(Player player, int index in players) {
+                Integer result = this.dice.roll()
+                Integer position = this.fields[index] += result
+                
+                if(position >= 40) {
+                    position = 40
+                }
+                
+                print "{player.name} rolled {result}. Now is on position {position}."
+                
+                if(position >= 40) {
+                    print "{player.name} won!"
+                    winner = player
+                    break
+                }
+            }
+        }
+    }
+}
+
+Game game = new Game()
+game.dice = new Dice()
+game.players = [
+    new Player("Anakin Skywalker"),
+    new Player("Obi-Wan Kenobi"),
+]
+
+game.prepareGame()
+game.run()
 ```
 
 Zadanie powinno być zrozumiałe przez wszystkich. Kolejno:
 * 
 
 W każdym języku będzie to wyglądało nieco inaczej, ale warto zwrócić uwagę na pewne niuanse:
-* 
+* w Javie konstruktor zapisuje się metodą o nazwie klasy, w PHP jest to magiczna metoda `__construct()`, a w Pythonie - `__init__()`
 
 ### Zadanie do wykonania
 Należy rozszerzyć program o następujące funkcjonalności:
 * 
 
 Wykonane zadanie należy dodać do swojego repozytorium w katalogu `lab04`.
-
+    ``
 ### Uruchamianie zadań
 Wszystkie narzędzia są skonteneryzowane i gotowe do użycia bezpośrednio poprzez Dockera. Chętni studenci mogą oczywiście uruchamiać zadania w środowiskach lokalnych.
 
