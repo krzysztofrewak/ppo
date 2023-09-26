@@ -1,28 +1,31 @@
 <?php
 
-class Student
+namespace Ppo\Lab02;
+
+class Player
 {
     public string $name;
-    public string $surname;
+    public int $healthPoints = 100;
 
-    public function getFullName(): string
+    public function identify(): string
     {
-        return $this->name . " " . $this->surname;
+        return "[{$this->healthPoints}] {$this->name}";
     }
 }
 
-function getRandomName(): string {
+function getRandomName(): string
+{
     $names = ["John", "Jim", "Jack", "George", "Kevin"];
+
     return $names[rand(0, count($names) - 1)];
 }
 
-$students = [];
+$players = [];
 
-$student = new Student();
-$student->name = getRandomName();
-$student->surname = "Doe";
-$students[] = $student;
+$player = new Player();
+$player->name = getRandomName();
+$players[] = $player;
 
-foreach ($students as $student) {
-    echo $student->getFullName() . PHP_EOL;
+foreach ($players as $player) {
+    echo $player->identify() . PHP_EOL;
 }

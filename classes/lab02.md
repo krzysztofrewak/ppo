@@ -125,15 +125,15 @@ print Student::university
 ```
 
 ### Analiza przykładowego zadania
-Zadanie składa się z trzech części: klasy opisującej studenta, funkcji losującej imię oraz procesu dodania studenta do listy studentów:
+Zadanie składa się z trzech części: klasy opisującej gracza, funkcji losującej imię oraz procesu dodania gracza do listy graczy:
 ```
-class Student
+class Player
 {
     String name
-    String surname
+    Integer healthPoints = 100
     
-    String getFullName() {
-        return this.name + " " + this.surname
+    String identify() {
+        return "[{this.healthPoints}] {this.name}"
     }
 }
 
@@ -142,46 +142,44 @@ function String getRandomName() {
     return names[rand(0, names.size() - 1)]
 }
 
-Collection<Student> students = []
+Collection<Player> players = []
 
-Student student = new Student()
-student.name = getRandomName()
-student.surname = "Doe"
-students.push(student)
+Player player = new Player()
+player.name = getRandomName()
+players.push(player)
 
-foreach(Student student in students) {
-    print student.getFullName()
+foreach(Player player in players) {
+    print player.identify()
 }
 ```
 
 Zadanie powinno być zrozumiałe przez wszystkich. Kolejno:
-* tworzona jest pusta kolekcja studentów;
-* następnie tworzony jest obiekt klasy `Student`;
-* następnie tenże student zyskuje losowane imię oraz nazwisko `Doe`;
-* następnie tenże student dodawany jest do kolekcji;
-* na koniec lista wszystkich studentów jest wypisywana na ekranie.
+* tworzona jest pusta kolekcja graczy;
+* następnie tworzony jest obiekt klasy `Player`;
+* następnie tenże gracz zyskuje losowane imię;
+* następnie tenże gracz dodawany jest do kolekcji;
+* na koniec lista wszystkich graczy jest wypisywana na ekranie.
 
 W każdym języku będzie to wyglądało nieco inaczej, ale warto zwrócić uwagę na pewne niuanse:
 * większość języków programowania posiada wygodne kontenery: w C++ jest to `std::vector`, w Javie `java.util.ArrayList`, w PHP `array` itd.
-* funkcja losująca imię jest poza klasą; mogłaby się w niej znaleźć, ale warto sobie zadać pytanie: czy student sam sobie nadaje imię, czy może po prostu je nosi i *nie wie*, w jaki sposób je dostaje? 
+* funkcja losująca imię jest poza klasą; mogłaby się w niej znaleźć, ale warto sobie zadać pytanie: czy gracz sam sobie nadaje imię, czy może po prostu je nosi i *nie wie*, w jaki sposób je dostaje? 
 * większość języków programowania posiada pętle `foreach` które w łatwy sposób iterują po kontenerze
-* zaprezentowany program najpewniej się wykrzaczy w momencie, gdy ktoś stworzy studenta bez nazwiska
+* zaprezentowany program najpewniej się wykrzaczy w momencie, gdy ktoś stworzy gracza bez nazwiska (dojdziemy do tego jak to naprawić przy okazji laboratorium 4)
 
 ### Zadanie do wykonania
 Należy rozszerzyć program o następujące funkcjonalności:
-* program powinien generować listę 30 studentów z losowanymi imionami, drugimi imionami, nazwiskami, numerem indeksu, statusem studenta:
-  * drugie imię nie powinno być obowiązkowe dla wszystkich studentów, więc niektórzy powinni wylosować się bez takowego;
-  * numer indeksu powinien być oprogramowany realistycznie (cokolwiek by to nie znaczyło);
-  * status studenta powinien przyjąć wartość `true` lub `false`;
-* następnie program powinien wypisać tylko aktywnych studentów w formacie:
+* program powinien generować listę 30 graczy z losowanymi imionami i tytułami raz statusem:
+  * tytuł powinien być losowany z dowolnej puli, ale nie powinien być wymagany; wręcz dobrze byłoby oprogramować, aby tylko część graczy otrzymywała tytuł
+  * status gracza powinien przyjąć wartość `true` lub `false` i będzie oznaczał czy dany gracz jest "online"
+* następnie program powinien wypisać tylko aktywnych graczy w formacie:
 ```
-[numer indeksu] | Nazwisko, Imiona
+[liczba punktów życia] | tytuł imię
 ```
 * czyli przykładowo:
 ```
-[43001] | Doe, John
-[43002] | Doe, Jim Alexander
-[43004] | Washington, Jane
+[100] | Darth Vader
+[100] | adm. Thrawn
+[100] | cpt. Gilad_Pellaeon
 ```
 
 Wykonane zadanie należy dodać do swojego repozytorium w katalogu `lab02`.

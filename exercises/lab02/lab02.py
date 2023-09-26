@@ -1,12 +1,12 @@
 import random
 
 
-class Student:
+class Player:
     name = None
-    surname = None
+    healthPoints = 100
 
-    def get_full_name(self):
-        return self.name + " " + self.surname
+    def identify(self):
+        return "[" + str(self.healthPoints) + "] " + self.name
 
 
 def get_random_name():
@@ -14,12 +14,11 @@ def get_random_name():
     return random.choice(names)
 
 
-students = []
+players = []
 
-student = Student()
-student.name = get_random_name()
-student.surname = "Doe"
-students.append(student)
+player = Player()
+player.name = get_random_name()
+players.append(player)
 
-for student in students:
-	print(student.get_full_name())
+for player in players:
+    print(player.identify())
