@@ -41,7 +41,15 @@ while ongoing:
     hit_points = attacker.attack(target)
 
     print(
-        "Round " + str(round) + ": " + attacker.name + " attacked " + target.name + " with " + str(hit_points) + " points."
+        "Round "
+        + str(round)
+        + ": "
+        + attacker.name
+        + " attacked "
+        + target.name
+        + " with "
+        + str(hit_points)
+        + " points."
     )
 
     for player in players:

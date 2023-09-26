@@ -21,4 +21,4 @@ player.name = get_random_name()
 players.append(player)
 
 for player in players:
-	print(player.identify())
+    print(player.identify())

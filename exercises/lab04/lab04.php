@@ -1,5 +1,7 @@
 <?php
 
+namespace Ppo\Lab04;
+
 class Dice
 {
     public function roll(): int
@@ -49,6 +51,7 @@ class Game
                 if ($position >= 40) {
                     echo "$player->name won!" . PHP_EOL;
                     $winner = $player;
+
                     break;
                 }
             }

@@ -1,5 +1,7 @@
 <?php
 
+namespace Ppo\Lab02;
+
 class Player
 {
     public string $name;
@@ -11,8 +13,10 @@ class Player
     }
 }
 
-function getRandomName(): string {
+function getRandomName(): string
+{
     $names = ["John", "Jim", "Jack", "George", "Kevin"];
+
     return $names[rand(0, count($names) - 1)];
 }
 

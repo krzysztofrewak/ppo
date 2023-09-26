@@ -1,5 +1,7 @@
 <?php
 
+namespace Ppo\Lab03;
+
 class Player
 {
     public string $name;
