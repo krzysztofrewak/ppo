@@ -1,26 +1,25 @@
 import java.util.ArrayList;
 import java.util.Random;
 
-class Student {
+class Player {
 	public String name;
-	public String surname;
+	public int healthPoints = 100;
 
-	public String getFullName() {
-		return this.name + " " + this.surname;
+	public String identify() {
+		return "[" + this.healthPoints + "] " + this.name;
 	}
 }
 
 public class lab02 {
 	public static void main(String[] args) {
-		ArrayList<Student> students = new ArrayList<Student>();
+		ArrayList<Player> players = new ArrayList<Player>();
 
-		Student student = new Student();
-		student.name = getRandomName();
-		student.surname = "Doe";
-		students.add(student);
+		Player player = new Player();
+		player.name = getRandomName();
+		players.add(player);
 
-		for(Student s : students) {
-			System.out.println(student.getFullName());
+		for(Player p : players) {
+			System.out.println(p.identify());
 		}
 	}
 

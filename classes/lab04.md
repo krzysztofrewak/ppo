@@ -39,7 +39,7 @@ class Dice
         this.sides = sides
     }
     
-    public int roll() {
+    public Integer roll() {
         return rand(1, this.sides)
     }
 }
@@ -99,8 +99,10 @@ class Game
     public Collection<Player> = []
     public Dice dice
     
-    foreach(Player player, int index in players) {
-        this.fields.add(index, 0)
+    public void prepareGame() {
+        foreach(Player player, int index in players) {
+            this.fields.add(index, 0)
+        }
     }
     
     public void run() {
@@ -139,17 +141,36 @@ game.run()
 ```
 
 Zadanie powinno być zrozumiałe przez wszystkich. Kolejno:
-* 
+* tworzona jest instancja gry
+* dopisywana jest do niej nowa instancja kostki
+* dopisywani są do niej dwaj gracze
+* wywołana jest metoda przygotowująca grę, która przypisuje wszystkim graczom pole startowe
+* uruchamiana jest właściwa rozgrywka, która w pętli rzuca za każdego gracza kostką i następnie przesuwa go o tyle pól, ile wypadło oczek na kostce; wygrywa ten, który pierwszy dojdzie do pola numer 40
 
 W każdym języku będzie to wyglądało nieco inaczej, ale warto zwrócić uwagę na pewne niuanse:
 * w Javie konstruktor zapisuje się metodą o nazwie klasy, w PHP jest to magiczna metoda `__construct()`, a w Pythonie - `__init__()`
+* zamiast przetrzymywać informację o pozycji gracza wewnątrz obiektu, stworzona jest dodatkowa struktura danych, która do każdego indeksu ma przypisany numer pola; ma to sens, bo sam pionek "nie powinien" wiedzieć gdzie się znajduje, ponieważ to odpowiedzialność samej gry
+* przedstawiony przykład ma jeden zasadniczy błąd w dziedzinie projektowania obiektowego: autor klasy zmusza nas do pełnej znajomości wszystkich klas, aby uruchomić grę; żeby gra poprawnie funkcjonowała należy wywołać metodę `prepareGame()` przez wywołaniem metody `run()`, co samo w sobie jest oczywiście proste, ale gdyby każda klasa narzucała takie wymagania to programowanie byłoby bardzo trudne
 
 ### Zadanie do wykonania
-Należy rozszerzyć program o następujące funkcjonalności:
-* 
+Należy poprawić program:
+* zastanowić się które wartości powinny być inicjalizowane poprzez publiczny akcesor, które poprzez wydzielony setter, a które poprzez konstruktor
+* zastanowić się które pola i metody powinny być publiczne, a które chronione lub prywatne
+* zastanowić się jak pozbyć się niepotrzebnego wymuszenia wywołania `prepareGame()` przed wywołaniem metody `run()` 
+
+Należy również rozszerzyć program o następujące funkcjonalności:
+* kostka powinna mieć definiowaną raz liczbę ścian (załóżmy, że maksymalnie do 20)
+* gracz powinien mieć definiowane raz imię oraz zdefiniowaną wewnętrznie liczbę punktów życia równą 50
+* gra powinna mieć możliwość jednokrotnego dodania jednej kostki oraz zamkniętego zestawu graczy; po rozpoczęciu gry już nikt nie powinien móc do niej dołączyć ani zmienić zasad
+* gra powinna mieć możliwość jednokrotnego, ale opcjonalnego ustawienia maksymalnej liczby pól; jeżeli nie zostałaby ona ustawiona, wówczas gra powinna przyjąć domyślnie 100 pól
+* gra powinna mieć możliwość jednokrotnego, ale opcjonalnego ustawienia maksymalnej liczby tur; jeżeli nie zostałaby ona ustawiona, gra toczyłaby się do osiągnięcia przez pierwszego gracza ostatniego pola; w przeciwnym wypadku wygrałby gracz, który jako pierwszy dotarł najdalej po zakończeniu ostatniej tury
+* gra powinna implementować dodatkową zasadę: jeżeli gracz stanie na polu podzielonym przez 7, powinien rzucić kostką i stracić tyle punktów życia, ile wypadło oczek; gracz, którego liczba punktów życia spadnie do zera przegrywa
+
+Chętni mogą zaimplementować większą dynamikę gry:
+* jeżeli gracz pojawi się na polu okupowanym przez innych graczy, wówczas powinien móc otrzymać obrażenia od pozostałych na podstawie dodatkowych rzutów kostką  
 
 Wykonane zadanie należy dodać do swojego repozytorium w katalogu `lab04`.
-    ``
+
 ### Uruchamianie zadań
 Wszystkie narzędzia są skonteneryzowane i gotowe do użycia bezpośrednio poprzez Dockera. Chętni studenci mogą oczywiście uruchamiać zadania w środowiskach lokalnych.
 
