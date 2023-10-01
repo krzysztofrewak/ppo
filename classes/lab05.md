@@ -113,13 +113,59 @@ Każdy kot (`Cat`) jest zarówno ssakiem (`Mammal`), jak i zwierzęciem (`Animal
 Zadanie składa się z dwóch części: klas opisujących różne pojazdy oraz głównej funkcji programu, która sprawdza ile kosztuje bilet wjazdu na parking dla danego pojazdu. Tym razem każda klasa jest opisana w osobnym pliku, czyli w sposób w jaki raczej się programuje na poważnie:
 ```
 class Car
+{
+    protected String name
+    
+    public Car(String name) {
+        this.name = name
+    }
+    
+    public Car(String name) {
+        this.name = name
+    }
+
+    public String getName() {
+        return "{this.getType()} {this.name}"
+    }
+
+    protected String getType() {
+        return "samochód osobowy"
+    }
+}
+
+class Truck extends Car
+{
+    public Truck(String name) {
+        super(name)
+    }
+    
+    protected String getType() {
+        return "samochód dostawczy"
+    }
+}
+
+function Decimal getPayment(Car car):
+    return switch(car.getClassName()) {
+        Truck::class -> 5.0,
+        default -> 4.0,
+    }
+
+
+Collection<Car> vehicles = [
+    Car("Volkswagen Passat"),
+    Truck("Volkswagen Transporter"),
+]
+
+foreach(Car vehicle in vehicles) {
+    print "{vehicle.getName()}: {getPayment(vehicle)}zł"
+}
 ```
 
 Zadanie powinno być zrozumiałe przez wszystkich. Kolejno:
 * 
 
 W każdym języku będzie to wyglądało nieco inaczej, ale warto zwrócić uwagę na pewne niuanse:
-* 
+* Java i Python mają słowo kluczowe `super()`, które wywołuje konstruktor klasy nadrzędnej; w PHP jest on domyślnie przepisany z rodzica
 
 ### Zadanie do wykonania
 Należy rozszerzyć program o następujące funkcjonalności:
@@ -132,8 +178,8 @@ Wszystkie narzędzia są skonteneryzowane i gotowe do użycia bezpośrednio popr
 
 #### Java
 ```
-docker compose run java javac ./exercises/lab05/*.java
-docker compose run java java -cp ./exercises/lab05 lab05
+docker compose run java javac ./exercises/lab05/java/Main.java ./exercises/lab05/java/lab05/*.java
+docker compose run java java -cp ./exercises/lab05/java Main
 ```
 
 #### PHP

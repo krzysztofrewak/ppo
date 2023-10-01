@@ -4,7 +4,6 @@ namespace Ppo\Lab05;
 
 class Car {
     protected string $name;
-    protected static string $type = "samochód osobowy";
 
     public function __construct(string $name)
     {
@@ -13,6 +12,11 @@ class Car {
 
     public function getName(): string
     {
-        return static::$type . " " . $this->name;
+        return $this->getType() . " " . $this->name;
+    }
+
+    protected function getType(): string
+    {
+        return "samochód osobowy";
     }
 }
