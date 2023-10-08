@@ -162,14 +162,19 @@ foreach(Car vehicle in vehicles) {
 ```
 
 Zadanie powinno być zrozumiałe przez wszystkich. Kolejno:
-* 
+* tworzony jest zbiór pojazdów składający się zarówno z samochodów klasy `Car`, jak i ciężarówek klasy `Truck` dziedziczącej po klasie `Car`;
+* wszystkie pojazdy zostają wypisane wraz z ceną wedle cennika zamodelowanego funkcją `getPayment()`;
 
 W każdym języku będzie to wyglądało nieco inaczej, ale warto zwrócić uwagę na pewne niuanse:
 * Java i Python mają słowo kluczowe `super()`, które wywołuje konstruktor klasy nadrzędnej; w PHP jest on domyślnie przepisany z rodzica
+* operator `match` różnie działa w różnych językach: w PHP wywołany zostanie `case`, który spełnia warunek przekazany jako parametr `match()`; w Javie zadziała nieco inaczej, ponieważ będzie rzutował parametr `match()` na opisany typem i zmienną `case`; natomiast w Pythonie konstrukcja w ogóle nie istnieje
 
 ### Zadanie do wykonania
 Należy rozszerzyć program o następujące funkcjonalności:
-* 
+* cennik powinien obsługiwać nową klasę przedstawiającą kampera; instancja nowej klasy powinna być dodana w głównym pliku do zbioru pojazdów do wypisania
+* każdy pojazd powinien mieć swoją tablicę rejestracyjną
+* cennik, najlepiej jako obiekt nowej klasy, powinien mieć rejestr tablic rejestracyjnych, które wjeżdżają za darmo, bez względu na rodzaj samochodu
+* wypisywanie pojazdów powinno teraz wypisać nie tylko typ pojazdu i cenę, ale również numer rejestracyjny
 
 Wykonane zadanie należy dodać do swojego repozytorium w katalogu `lab05`.
 
@@ -191,5 +196,5 @@ docker compose run php php ./exercises/lab05/php/index.php
 
 #### Python
 ```
-docker compose run python python ./exercises/lab05/lab05.py
+docker compose run python python ./exercises/lab05/python/main.py
 ```
