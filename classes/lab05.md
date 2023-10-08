@@ -5,7 +5,7 @@ Przewidywany plan zajęć kształtuje się następująco:
 * przedstawienie idei dziedziczenia w kontekście dziedziczonych cech,
 * przedstawienie idei dziedziczenia w kontekście polimorfizmu, 
 * analiza zadania przykładowego,
-* indywidualna praca nad listą zadań na ocenę.
+* indywidualna praca nad listą zadań.
 
 ### Dziedziczenie cech
 Oto bardzo prosta reprezentacja samochodu:
