@@ -123,6 +123,12 @@ tworzy commit o nazwie "zmiany"
 przesyła commity na serwer
 ```
 
+W momencie gdy zostaniemy poproszeni o login oraz hasło, poprzez hasło Github rozumie token, który należy sobie wygenerować.
+Aby wygenerować taki token należy będąc zalogowanym przejść na adres:
+https://github.com/settings/tokens
+
+Następnie należy wybrać `Generate new token (classic)`, wypełnić niezbędne pola i wygenerowany token zapisać w bezpiecznym miejscu i korzystać z niego podczas komunikacji z Githubem.
+
 Z poziomu narzędzi takich jak produkty JetBrains, SourceTree, GitHub Desktop czy GitKraken te same polecenia można wykonać przez graficzny interfejs użytkownika. 
 
 ### Zadanie do wykonania
