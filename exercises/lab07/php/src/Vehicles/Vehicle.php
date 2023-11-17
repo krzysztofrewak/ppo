@@ -1,0 +1,41 @@
+<?php
+
+namespace Ppo\Lab07\Vehicles;
+
+abstract class Vehicle
+{
+    protected bool $isAnonymous = false;
+    protected ?string $identifier;
+
+    public function __construct(?string $identifier = null)
+    {
+        $this->identifier = $identifier;
+
+        if (!$identifier) {
+            $this->isAnonymous = true;
+        }
+    }
+
+    public function identify(): string
+    {
+        if ($this->isAnonymous) {
+            return $this->getAnonymousIdentifier();
+        }
+
+        return $this->getIdentifier();
+    }
+
+    protected function getAnonymousIdentifier(): string
+    {
+        $class = strtolower($this->getClass());
+
+        return "anonymous by $class";
+    }
+
+    protected function getClass(): string
+    {
+        return array_reverse(explode("\\", static::class))[0];
+    }
+
+    abstract protected function getIdentifier(): string;
+}
