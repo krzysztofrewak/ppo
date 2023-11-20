@@ -1,4 +1,4 @@
-## Interfejsy
+## Klasy abstrakcyjne
 
 ### Agenda
 Przewidywany plan zajęć kształtuje się następująco:
