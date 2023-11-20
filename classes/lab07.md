@@ -67,17 +67,67 @@ Największą i zasadniczą różnicą jest to, że metoda abstrakcyjna nie musi 
 Tutaj ważna rzecz do zapamiętania: jeżeli klasa posiada przynajmniej jedną metodę abstrakcyjną, wówczas sama musi też być oznaczona jako abstrakcyjna. Oczywiście nie wyklucza to sytuacji, w której może istnieć klasa abstrakcyjna bez żadnych metod abstrakcyjnych. Wymuszenie abstrakcji klasy raczej zostanie nam podpowiedziane przez każde sensowne IDE.
 
 ### Analiza przykładowego zadania
-Zadanie składa się z kilku części: 
+Zadanie składa się z kilku części: klasy abstrakcyjnej `Vehicle`, klas `Bike` i `Car` dziedziczących po niej oraz głównej części programu, gdzie kolejne obiekty rowerów i samochodów identyfikują się.
 
 Zadanie powinno być zrozumiałe przez wszystkich. Kolejno:
-* 
+* tworzona jest lista obiektów klasy `Vehicle` czyli `Bike` i `Car`, gdyż samo `Vehicle` jest klasą abstrakcyjną, więc nie można utworzyć jej obiektu per se,
+* każdy obiekt z listy przedstawia się metodą `identify()`.
 
-W każdym języku będzie to wyglądało inaczej, ale warto zwrócić uwagę na większe różnice:
-* 
+`identify()` jest publiczną metodą klasy `Vehicle`, której nie można rozszerzać, a która wywołuje `getAnonymousIdentifier()` lub `getIdentifier()` w zależności od stanu zmiennej `isAnonymous`. `getAnonymousIdentifier()` jest domyślnie zaimplementowane w klasie `Vehicle` (choć `Car` je nadpisuje), natomiast `getIdentifier()` każda klasa musi zaimplementować sama.
+
+Wynik uruchomienia programu powinien wyglądać następująco:
+```
+anonymous by car [DL00001]
+John Doe by bike
+anonymous by bike
+Jane Doe by car [DL00002]
+anonymous by car [DLU0001]
+```
 
 ### Zadanie do wykonania
 Należy rozszerzyć program o następujące funkcjonalności:
-* 
+* należy zaprojektować parking, na który mogą wchodzić lub wjeżdżać następujące obiekty:
+* * psy
+* * piesi anonimowi
+* * piesi znani z nazwiska
+* * rowerzyści anonimowi
+* * rowerzyści znani z nazwiska
+* * hulajnogiści anonimowi
+* * hulajnogiści znani z nazwiska
+* * motocykliści z tablicami rejestracyjnymi
+* * motocykliści z tablicami rejestracyjnymi i nazwiskiem kierowcy
+* * samochody z tablicami rejestracyjnymi, marką pojazdu i opcjonalnym kolorem
+* * samochody z tablicami rejestracyjnymi, nazwiskiem kierowcy, marką pojazdu i opcjonalnym kolorem
+* * samochody pracowników z tablicami rejestracyjnymi, nazwiskiem kierowcy, marką pojazdu i opcjonalnym kolorem
+* * karetki z tablicami rejestracyjnymi
+* * samochody dostawcze z tablicami rejestracyjnymi i nazwą firmy
+* * czołgi z tablicami rejestracyjnymi
+* parkingowy nie powinien wpuszczać psów ani czołgów
+* parkingowy nie powinien wpuszczać więcej rowerzystów niż ma wolnych miejsc parkingowych dla rowerów oraz więcej motocyklistów niż ma wolnych miejsc parkingowych dla motocykli
+* parkingowy nie powinien wpuszczać więcej samochodów niż ma wolnych miejsc dla samochodów; karetki i dostawczaki nie powinny zajmować żadnych miejsc
+* parkingowy powinien pobrać opłatę zgodnie z cennikiem (motocykliści - 2zł, samochody - 5zł, samochody pracowników - 5zł, samochody pracowników z abonamentem - 0zł, karetki - 0zł, dostawczaki - 0zł)
+* parkingowy nie powinien wpuszczać żadnych pojazdów z rejestracją, która znajduje się na czarnej liście tablic rejestracyjnych; nie może dotyczyć to karetek
+* parkingowy powinien odnotować wejście każdego zgodnie z szablonem poniżej:
+
+```
+anonymous dog is returned at 2023-11-17 12:00:00
+anonymous pedestrian is entering at 2023-11-17 12:00:00
+John Doe is entering at 2023-11-17 12:00:00
+anonymous bike is entering at 2023-11-17 12:00:00
+John Doe by bike is entering at 2023-11-17 12:00:00
+anonymous escooter is entering at 2023-11-17 12:00:00
+John Doe by escooter is entering at 2023-11-17 12:00:00
+anonymous motocycle (DL 001) is entering at 2023-11-17 12:00:00
+John Doe by motocycle (DL 001) is entering at 2023-11-17 12:00:00
+Audi (DL 00001) is entering at 2023-11-17 12:00:00
+black Audi (DL 00001) is entering at 2023-11-17 12:00:00
+John Doe by Audi (DL 00001) is entering at 2023-11-17 12:00:00
+John Doe by black Audi (DL 00001) is entering at 2023-11-17 12:00:00
+ambulance (DL 00001) is entering at 2023-11-17 12:00:00
+DHL delivery truck (DL 00001) is entering at 2023-11-17 12:00:00
+tank is returned at 2023-11-17 12:00:00
+blacklisted John Doe by black Audi (DL 00001) is returned at 2023-11-17 12:00:00
+```
 
 Nad czym warto się zastanowić?
 * 

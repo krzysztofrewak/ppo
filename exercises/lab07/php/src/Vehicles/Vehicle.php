@@ -16,7 +16,7 @@ abstract class Vehicle
         }
     }
 
-    public function identify(): string
+    final public function identify(): string
     {
         if ($this->isAnonymous) {
             return $this->getAnonymousIdentifier();
@@ -27,14 +27,12 @@ abstract class Vehicle
 
     protected function getAnonymousIdentifier(): string
     {
-        $class = strtolower($this->getClass());
-
-        return "anonymous by $class";
+        return "anonymous by {$this->getClass()}";
     }
 
     protected function getClass(): string
     {
-        return array_reverse(explode("\\", static::class))[0];
+        return strtolower(array_reverse(explode("\\", static::class))[0]);
     }
 
     abstract protected function getIdentifier(): string;
