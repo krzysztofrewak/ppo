@@ -102,7 +102,8 @@ Należy rozszerzyć program o następujące funkcjonalności:
 * * karetki z tablicami rejestracyjnymi
 * * samochody dostawcze z tablicami rejestracyjnymi i nazwą firmy
 * * czołgi z tablicami rejestracyjnymi
-* parkingowy nie powinien wpuszczać psów ani czołgów
+* program powinien posiadać generator kolejki chętnych do wejścia/wjazdu na parking; jako minimum taki generator musiałby umieć wyprodukować $n$ obiektów; idealnie generowałby $n_k$ obiektów każdego typu z zadanymi proporcjami lub liczbami
+* parkingowy nie powinien wpuszczać psów ani czołgów (czyli powinien zawrócić je przed bramą)
 * parkingowy nie powinien wpuszczać więcej rowerzystów niż ma wolnych miejsc parkingowych dla rowerów oraz więcej motocyklistów niż ma wolnych miejsc parkingowych dla motocykli
 * parkingowy nie powinien wpuszczać więcej samochodów niż ma wolnych miejsc dla samochodów; karetki i dostawczaki nie powinny zajmować żadnych miejsc
 * parkingowy powinien pobrać opłatę zgodnie z cennikiem (motocykliści - 2zł, samochody - 5zł, samochody pracowników - 5zł, samochody pracowników z abonamentem - 0zł, karetki - 0zł, dostawczaki - 0zł)
@@ -128,9 +129,29 @@ DHL delivery truck (DL 00001) is entering at 2023-11-17 12:00:00
 tank is returned at 2023-11-17 12:00:00
 blacklisted John Doe by black Audi (DL 00001) is returned at 2023-11-17 12:00:00
 ```
+* na "koniec dnia" parkingowy powinien zebrać informację na temat stanu parkingu, który powinien być zgodny z szablonem poniżej:
+```
+money collected: 87zł
+entrances count: 48
+
+car spaces occupied: 17/20 (85%)
+motocycle spaces occupied: 1/10 (10%)
+bicycle spaces occupied: 10/10 (100%)
+
+cars returned: 0
+motocycles returned: 0
+bicycles returned: 3
+
+blacklisted cars entrance attempted: 1
+```
 
 Nad czym warto się zastanowić?
-* 
+* przede wszystkim jak zamodelować wszystkie wchodzące/wjeżdżające obiekty oraz jak sensownie wykorzystać przy tym konstruktory, dziedziczenie, interfejsy i klasy abstrakcyjne
+* czy obiekty takie jak czarna lista tablic rejestracyjnych powinny być osobną klasą, czy tylko funkcjonalnością głównej klasy?
+* czy zebrana kwota może być po prostu liczą zaparkowanych samochodów razy cenę biletu plus liczbą motocykli raz cenę biletu; a może jednak lepiej zliczać ją obok?
+* jak sensownie zamodelować kolejkę wchodzących/wjeżdżających obiektów; czy `queueGenerator.generate(100)` jest wystarczające, a może jednak trzeba to rozszerzyć do `queueGenerator.generate(cars: 10, motocycles: 10)` lub czegoś jeszcze innego? Tutaj warto to mądrze rozegrać, bo taki generator byłby fajną podstawę do testów jednostkowych!
+
+Chętni mogą zaimplementować właśnie automatyzację testowania. Podczas gdy w głównym programie stworzony zostanie po prostu obiekt na podstawie klasy `ParkingLot`, można utworzyć drugą klasę, która będzie przygotowywała gotowe scenariusze (np. na parking o pojemności 10 i bez czarnej listy wjeżdza 12 samochodów) i sprawdzała poprawność operacji (kontynuując przykład: powinniśmy zebrać 50zł, parking samochodów powinien być wypełniony w całości, a dwa samochody powinny zostać cofnięte).
 
 Wykonane zadanie należy dodać do swojego repozytorium w katalogu `lab07`.
 
