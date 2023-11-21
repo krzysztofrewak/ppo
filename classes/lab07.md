@@ -107,7 +107,7 @@ Należy rozszerzyć program o następujące funkcjonalności:
 * parkingowy nie powinien wpuszczać więcej rowerzystów niż ma wolnych miejsc parkingowych dla rowerów oraz więcej motocyklistów niż ma wolnych miejsc parkingowych dla motocykli
 * parkingowy nie powinien wpuszczać więcej samochodów niż ma wolnych miejsc dla samochodów; karetki i dostawczaki nie powinny zajmować żadnych miejsc
 * parkingowy powinien pobrać opłatę zgodnie z cennikiem (motocykliści - 2zł, samochody - 5zł, samochody pracowników - 5zł, samochody pracowników z abonamentem - 0zł, karetki - 0zł, dostawczaki - 0zł)
-* parkingowy nie powinien wpuszczać żadnych pojazdów z rejestracją, która znajduje się na czarnej liście tablic rejestracyjnych; nie może dotyczyć to karetek
+* parkingowy nie powinien wpuszczać żadnych pojazdów z rejestracją, która znajduje się na czarnej liście tablic rejestracyjnych; nie dotyczy to karetek
 * parkingowy powinien odnotować wejście każdego zgodnie z szablonem poniżej:
 
 ```
