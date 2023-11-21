@@ -62,7 +62,7 @@ Siłą rzeczy klasy opisane jako `abstract` nie mogą być również opisane jak
 ### Metody abstrakcyjne
 Metoda abstrakcyjna to nic innego niż kolejny rodzaj kontraktu, coś podobnego do interfejsu. Łatwo ją zidentyfikować poprzez słowo kluczowe `abstract` przed akcesorem oraz brak ciała funkcji, czyli znowu podobnie jak sygnatury metod w interfejsach. 
 
-Największą i zasadniczą różnicą jest to, że metoda abstrakcyjna nie musi być publiczna, ponieważ nie jest publicznym kontraktem. Może być chroniona (`protected`), co może być przydatne, gdy chcemy już zaplanować użycie tej motedy w innej metodzie, ale nie chcemy jej enkapsulować. Dokładnie taki scenariusz został przedstawiony powyżej z założeniem, że `run()` wywołuje `checkIfCanRun()` i `proceed()`, ale metod tych faktycznie w klasie `Vehicle` nie ma.
+Największą i zasadniczą różnicą jest to, że metoda abstrakcyjna nie musi być publiczna, ponieważ nie jest publicznym kontraktem. Może być chroniona (`protected`), co może być przydatne, gdy chcemy już zaplanować użycie tej metody w innej metodzie, ale nie chcemy jej enkapsulować. Dokładnie taki scenariusz został przedstawiony powyżej z założeniem, że `run()` wywołuje `checkIfCanRun()` i `proceed()`, ale metod tych faktycznie w klasie `Vehicle` nie ma.
 
 Tutaj ważna rzecz do zapamiętania: jeżeli klasa posiada przynajmniej jedną metodę abstrakcyjną, wówczas sama musi też być oznaczona jako abstrakcyjna. Oczywiście nie wyklucza to sytuacji, w której może istnieć klasa abstrakcyjna bez żadnych metod abstrakcyjnych. Wymuszenie abstrakcji klasy raczej zostanie nam podpowiedziane przez każde sensowne IDE.
 
