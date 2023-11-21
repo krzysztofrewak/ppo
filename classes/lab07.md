@@ -160,7 +160,7 @@ Wszystkie narzędzia są skonteneryzowane i gotowe do użycia bezpośrednio popr
 
 #### Java
 ```
-docker compose run java javac ./exercises/lab07/java/Main.java  ./exercises/lab07/java/lab07/*.java ./exercises/lab07/java/lab07/**/*.java
+docker compose run java javac ./exercises/lab07/java/Main.java ./exercises/lab07/java/lab07/**/*.java
 docker compose run java java -cp ./exercises/lab07/java Main
 ```
 
