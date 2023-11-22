@@ -8,7 +8,7 @@ Strona kursu dla semestru III na kierunku Informatyka na Wydziale Nauk Techniczn
 1. [Konstruktory](./classes/lab04.md)
 1. [Dziedziczenie](./classes/lab05.md)
 1. [Interfejsy](./classes/lab06.md)
-1. Klasy abstrakcyjne
+1. [Klasy abstrakcyjne](./classes/lab07.md)
 1. Funkcje anonimowe
 1. Wyjątki
 1. Refleksje

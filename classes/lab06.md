@@ -112,20 +112,20 @@ class Truck extends Car
 class ParkingLot
 {
     protected const Integer MAX_AVAILABLE_SPACES = 3
-	protected Integer occupiedSpaces = 0
+    protected Integer occupiedSpaces = 0
 
-	public void (ParkingVehicle vehicle)
-	{
-		String name = vehicle.getName()
-		String now = date("Y-m-d H:M:S")
+    public void (ParkingVehicle vehicle)
+    {
+        String name = vehicle.identify()
+        String now = date("Y-m-d H:M:S")
 
-		if(this.occupiedSpaces >= static.MAX_AVAILABLE_SPACES) {
-			print "{name} is returned at {now}"
-			return
-		}
+        if(this.occupiedSpaces >= static.MAX_AVAILABLE_SPACES) {
+            print "{name} is returned at {now}"
+            return
+        }
 
-		print "{name} is entering at {now}"
-		this.occupiedSpaces++
+        print "{name} is entering at {now}"
+        this.occupiedSpaces++
     }
 }
 ```
@@ -194,7 +194,7 @@ Wszystkie narzędzia są skonteneryzowane i gotowe do użycia bezpośrednio popr
 
 #### Java
 ```
- docker compose run java javac ./exercises/lab06/java/Main.java  ./exercises/lab06/java/lab06/*.java ./exercises/lab06/java/lab06/**/*.java
+docker compose run java javac ./exercises/lab06/java/Main.java  ./exercises/lab06/java/lab06/*.java ./exercises/lab06/java/lab06/**/*.java
 docker compose run java java -cp ./exercises/lab06/java Main
 ```
 
