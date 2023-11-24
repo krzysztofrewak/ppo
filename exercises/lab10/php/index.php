@@ -17,8 +17,8 @@ $router = new Router([
 $route = $router->match($argv[1]);
 
 $reflector = new ReflectionClass($route->action);
-$foo = $reflector->newInstance();
+$instance = $reflector->newInstance();
 $method = $reflector->getMethod($route->method);
-$result = $method->invoke($foo, ...array_splice($argv, 2));
+$result = $method->invoke($instance, ...array_splice($argv, 2));
 
 echo $result . PHP_EOL;
