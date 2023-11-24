@@ -52,6 +52,8 @@ Zatem jeżeli użytkownik uruchomi program z parametrem:
 
 Router porównuje podane polecenie ze swoimi poleceniami i wydaje konkretny obiekt klasy `Route`. Z niego mechanizmem refleksji budowany jest obiekt akcji, następnie wywoływana jest konkretna metoda z przekazanymi parametrami.
 
+Program realizuje zadanie w najprotszy możliwy sposób, aby przedstawić zagadnienie mechanizmu refleksji bez zbędnych rozpraszaczy. W rzeczywistości taka funkcjonalność musiałaby być o wiele bardziej zabezpieczona, gdyż teraz program się wyłoży przy braku parametrów uruchomienia, przy niewłaściwych parametrach itp. Warto też się zastanowić czy zawsze będziemy chcieli umożliwić uruchomienia naprawdę każdej metody.
+
 ### Zadanie do wykonania
 Należy zaprojektować i zaimplementować program realizujący następujące funkcjonalności:
 * program powinien umożliwiać ewidencjonowanie zwierząt w zoo;
@@ -141,7 +143,10 @@ docker compose run java java -cp ./exercises/lab10/java Main
 #### PHP
 ```
 docker compose run php composer install --working-dir=./exercises/lab10/php
-docker compose run php php ./exercises/lab10/php/index.php
+docker compose run php php ./exercises/lab10/php/index.php version
+docker compose run php php ./exercises/lab10/php/index.php quote
+docker compose run php php ./exercises/lab10/php/index.php quote:popular
+docker compose run php php ./exercises/lab10/php/index.php quote:id 2
 ```
 
 #### Python
