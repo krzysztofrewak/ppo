@@ -136,8 +136,11 @@ Wszystkie narzędzia są skonteneryzowane i gotowe do użycia bezpośrednio popr
 
 #### Java
 ```
-docker compose run java javac ./exercises/lab10/java/Main.java ./exercises/lab10/java/lab10/**/*.java
-docker compose run java java -cp ./exercises/lab10/java Main
+docker compose run java javac ./exercises/lab10/java/Main.java  ./exercises/lab10/java/lab10/*.java ./exercises/lab10/java/lab10/**/*.java
+docker compose run java java -cp ./exercises/lab10/java Main version
+docker compose run java java -cp ./exercises/lab10/java Main quote
+docker compose run java java -cp ./exercises/lab10/java Main quote:popular
+docker compose run java java -cp ./exercises/lab10/java Main quote:id 2
 ```
 
 #### PHP
