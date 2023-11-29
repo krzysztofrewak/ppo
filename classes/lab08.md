@@ -69,7 +69,7 @@ class Collection {
 }
 ```
 
-To tylko trzy funkcje, które teoretycznie robią to samo, ale musieliśmy je powtórzyć, bo trudno je sparametryzować w klasyczny sposób. Metoda `filterByWordsLongerThan` wygląda najgorzej: w najgorszym wypadku musielibyśmy stworzyć cztery analogiczne: dla słów równej długości, krótszych, krótszych lub równych oraz dłuższych lub równych. Sprawa skomplikowałaby się jeszcze bardziej, gdybyśmy chcieli do kolekcji przyjmować inne typy niż tylko string.
+To tylko trzy funkcje, które teoretycznie robią to samo, ale musieliśmy je powtórzyć, bo trudno je sparametryzować w klasyczny sposób. Metoda `filterByWordsLongerThan` wygląda najgorzej: w najbardziej pesymistycznym wypadku musielibyśmy stworzyć cztery analogiczne: dla słów równej długości, krótszych, krótszych lub równych oraz dłuższych lub równych. Sprawa skomplikowałaby się jeszcze bardziej, gdybyśmy chcieli do kolekcji przyjmować inne typy niż tylko string.
 
 A gdybyśmy przekazali pomysł na funkcję sortującą, a metoda `filter()` sama by ją sobie wywołała?
 ```
@@ -181,7 +181,7 @@ print collection.count()
 
 Nad czym warto się zastanowić?
 * czy metoda `map` powinna tworzyć pod spodem nową instancję kolekcji?
-* co się stanie, jeżeli zmienimy słowo $et$ na $Et$ w przykładowym programie?
+* co się stanie, jeżeli zmienimy słowo `et` na `Et` w przykładowym programie?
 
 Wykonane zadanie należy dodać do swojego repozytorium w katalogu `lab08`.
 
