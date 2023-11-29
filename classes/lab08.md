@@ -133,17 +133,55 @@ class Collection<T> {
 
 ### Analiza przykładowego zadania
 Zadanie składa się z kilku części: 
-* 
+* klasy opisującej kolekcję stringów, którą można sortować, filtrować, ucinać oraz wypisywać
+* głównej funkcji, w której kolekcja jest zapełniona słowami oraz przeprowadzane są na niej kolejne operacje 
 
 Zadanie powinno być zrozumiałe przez wszystkich. Kolejno:
-* 
+* zestaw słów jest wgrany do kolekcji
+* następnie kolekcja jest przefiltrowana tak, aby pozostały w niej słowa, która mają mniej niż cztery litery
+* następnie jest przesortowana alfabetycznie
+* następnie jest ucięta do dwóch pierwszych elementów
+* a na koniec jest wypisana.
+
+Wynik powinien być następujący:
+```
+in: Lorem, ipsum, dolor, sit, amet, consectetur, adipiscing, elit, sed, do, eiusmod, tempor, incididunt, ut, labore, et, dolore, magna, aliqua
+
+out: do, et
+ ```
 
 ### Zadanie do wykonania
 Należy rozszerzyć program o następujące funkcjonalności:
-* należy zaprojektować parking, na który mogą wchodzić lub wjeżdżać następujące obiekty:
+* przerobić tak, aby przyjmował obiekty dowolnego typu per instancja kolekcji (czyli, żeby móc zbudować na przykład kolekcję użytkowników klasy `User`, a obok kolekcję kwiatów klasy `Flower`) (to będzie raczej zagadnienie dla Javowców, jako że PHP i Python nie obsługują generyków)
+* rozszerzyć klasę kolekcji o metodę `map`, która będzie przekształcała obiekty tablicy w inne; na przykład `collection.map(function(String word) => word.length)` powinno stworzyć tablicę liczb reprezentujących długość wyrazów
+* rozszerzyć klasę kolekcji o metodę `reject` odwrotną do `filter`; metoda powinna pozostawić tylko te elementy, które nie spełniają przekazanego wyrażenia lambda
+* rozszerzyć klasę kolekcji o metodę `count` wypisującą liczbę elementów kolekcji
+* zbudować kolekcję pojazdów składającą się z 25 samochodów, następnie odfiltrować z nich marki Audi i BMW, posortować wedle przebiegu od najwyższego i wypisać pięć pierwszych jako VIN
+* zbudować kolekcję 25 graczy, sprawdzić ilu z nich jeszcze żyje i wypisać tę liczbę
+
+Sugerowane wejście powinno wyglądać następująco:
+```
+let collection = new Collection<Car>(cars)
+collection.reject(function(Car car) => car.getMake().isOneOf(["Audi", "BMW"]))
+collection.sort(function(Car a, Car b) => b.getMileage() - a.getMileage())
+collection.map(function(Car car) => car.getVIN())
+collection.limit(5)
+
+print collection.get()
+```
+
+oraz 
+
+```
+let collection = new Collection<Player>(players)
+collection.filter(function(Player player) => player.isAlive())
+
+print collection.count()
+```
 
 Nad czym warto się zastanowić?
-* 
+* czy metoda `map` powinna tworzyć pod spodem nową instancję kolekcji?
+* co się stanie, jeżeli zmienimy słowo $et$ na $Et$ w przykładowym programie?
 
 Wykonane zadanie należy dodać do swojego repozytorium w katalogu `lab08`.
 
