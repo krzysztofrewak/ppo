@@ -9,9 +9,9 @@ Strona kursu dla semestru III na kierunku Informatyka na Wydziale Nauk Techniczn
 1. [Dziedziczenie](./classes/lab05.md)
 1. [Interfejsy](./classes/lab06.md)
 1. [Klasy abstrakcyjne](./classes/lab07.md)
-1. Funkcje anonimowe
+1. [Funkcje anonimowe](./classes/lab08.md)
 1. Wyjątki
-1. Refleksje
+1. [Refleksje](./classes/lab10.md)
 1. Praktyczne wykorzystanie programowania obiektowego, cz. I
 1. Praktyczne wykorzystanie programowania obiektowego, cz. II
 1. Praktyczne wykorzystanie programowania obiektowego, cz. III
