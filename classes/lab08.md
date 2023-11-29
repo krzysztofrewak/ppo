@@ -6,7 +6,130 @@ Przewidywany plan zajęć kształtuje się następująco:
 * analiza zadania przykładowego,
 * indywidualna praca nad listą zadań.
 
-### Funkcja jako parametr innej funkcji
+### Funkcja jako argument innej funkcji
+Myślę, żę przyzwyczailiśmy się wszyscy do tego, że do funkcji można jako argumenty przekazać wartości prymitywnych typów lub obiekty zbudowane na podstawie klas:
+```
+this.rearrangePermissions(users, permissions, true)
+```
+
+W większości języków programowania można jako parametru oczekiwać tak zwanej funkcji anonimowej, zwanej też często funkcją lambda. Jest to funkcja nieprzypisana do żadnej nazwy, którą można wywołać ad hoc w innej części programu. Brzmi nieco zawile, ale spróbujmy to rozgryźć na przykładach.
+
+Wyobraźmy sobie klasę `Collection`, która przyjmuje w swoim konstruktorze tablicę stringów, czyli słów:
+```
+class Collection {
+    protected array<String> words
+
+    public Collection(array<String> words) {
+        this.words = words
+    }
+}
+```
+
+Stworzenie funkcji, która będzie filtrowała części składowe kolekcji (słowa), wydaje się bardzo prosta. Wyobraźmy sobie, że musimy je filtrować względem długości słowa, zawierania w sobie innego słowa oraz rozpoczynania się wielką literą:
+```
+class Collection {
+    protected array<String> words
+
+    public Collection(array<String> words) {
+        this.words = words
+    }
+
+    public void filterByWordsLongerThan(int length) {
+        let words = []
+        foreach(String word in this.words) {
+            if(word.length >= length) {
+                words[] = word
+            }
+        }
+        
+        this.words = words
+    }
+
+    public void filterByContainedString(String string) {
+        let words = []
+        foreach(String word in this.words) {
+            if(word.includes(string)) {
+                words[] = word
+            }
+        }
+        
+        this.words = words
+    }
+
+    public void filterByFirstLetterCasing() {
+        let words = []
+        foreach(String word in this.words) {
+            if(word.get(0).isUppercase()) {
+                words[] = word
+            }
+        }
+        
+        this.words = words
+    }
+}
+```
+
+To tylko trzy funkcje, które teoretycznie robią to samo, ale musieliśmy je powtórzyć, bo trudno je sparametryzować w klasyczny sposób. Metoda `filterByWordsLongerThan` wygląda najgorzej: w najgorszym wypadku musielibyśmy stworzyć cztery analogiczne: dla słów równej długości, krótszych, krótszych lub równych oraz dłuższych lub równych. Sprawa skomplikowałaby się jeszcze bardziej, gdybyśmy chcieli do kolekcji przyjmować inne typy niż tylko string.
+
+A gdybyśmy przekazali pomysł na funkcję sortującą, a metoda `filter()` sama by ją sobie wywołała?
+```
+class Collection {
+    protected array<String> words
+
+    public Collection(array<String> words) {
+        this.words = words
+    }
+
+    public void filter(lambda function) {
+        let words = []
+        foreach(String word in this.words) {
+            if(function(word)) {
+                words[] = word
+            }
+        }
+        
+        this.words = words
+    }
+```
+
+Żeby znaleźć wszystkie słowa dłuższe niż trzy litery, zaczynające się na wielką literą oraz mające w sobie literę $a$, należałoby wywołać taki ciąg funkcji:
+```
+let collection = new Collection(words)
+collection.filterByWordsLongerThan(3)
+collection.filterByContainedString("a")
+collection.filterByFirstLetterCasing()
+```
+
+Z wykorzystaniem funkcji anonimowych wyglądałoby to tak:
+```
+let collection = new Collection(words)
+collection.filter(function(String word) => word.length >= 3)
+collection.filter(function(String word) => word.includes(string))
+collection.filter(function(String word) => word.get(0).isUppercase())
+```
+
+Metoda `filter` przyjmuje teraz wyrażenie lambda, które następnie wywołuje z przekazanym parametrem. Dzięki temu nie musimy tworzyć 17 różnych metod filtrujących, a wystarczy jedna definicja przyjmująca model filtrowania.
+
+Będzie to też bardziej poręczne w przypadku generycznych typów w klasach. Dzięki temu nie uzależniamy już implementacji metod `filter*` od tego, że obiektami kolekcji będą słowa; teraz mogą być to obiekty dowolnego typu:
+```
+class Collection<T> {
+    protected array<T> words
+
+    public Collection(array<T> words) {
+        this.words = words
+    }
+
+    public void filter(lambda function) {
+        let words = []
+        foreach(T word in this.words) {
+            if(function(word)) {
+                words[] = word
+            }
+        }
+        
+        this.words = words
+    }
+```
 
 ### Analiza przykładowego zadania
 Zadanie składa się z kilku części: 
