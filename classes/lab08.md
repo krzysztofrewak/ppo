@@ -25,7 +25,7 @@ class Collection {
 }
 ```
 
-Stworzenie funkcji, która będzie filtrowała części składowe kolekcji (słowa), wydaje się bardzo prosta. Wyobraźmy sobie, że musimy je filtrować względem długości słowa, zawierania w sobie innego słowa oraz rozpoczynania się wielką literą:
+Stworzenie funkcji, która będzie filtrowała części składowe kolekcji (słowa), wydaje się bardzo proste. Wyobraźmy sobie, że musimy je filtrować względem długości słowa, zawierania w sobie innego słowa oraz rozpoczynania się wielką literą:
 ```
 class Collection {
     protected array<String> words
