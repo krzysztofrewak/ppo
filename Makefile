@@ -80,6 +80,17 @@ lab08-php:
 lab08-python:
 	$(PYTHON) ./exercises/lab08/python/main.py
 
+lab09-java:
+	$(JAVAC) ./exercises/lab09/java/Main.java ./exercises/lab09/java/lab09/*.java ./exercises/lab09/java/lab09/**/*.java
+	$(JAVA) ./exercises/lab09/java Main
+
+lab09-php:
+	$(COMPOSER) ./exercises/lab09/php/index.php
+	$(PHP) ./exercises/lab09/php/index.php
+
+lab09-python:
+	$(PYTHON) ./exercises/lab09/python/main.py
+
 lab10-java:
 	$(JAVAC) ./exercises/lab10/java/Main.java  ./exercises/lab10/java/lab10/*.java ./exercises/lab10/java/lab10/**/*.java
 	$(JAVA) ./exercises/lab10/java Main version
