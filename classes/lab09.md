@@ -19,10 +19,121 @@ Traceback (most recent call last):
 TypeError: can only concatenate str (not "int") to str
 ```
 
-Są to błędy (ang. _errors_), które można obsłużyć przede wszystkim poprzez walidację i sanityzację danych. W tym przypadku można byłoby to naprawić choćby rzutowaniem liczba na słowo: `"test" + str(1)`. Z reguły powinniśmy minimalizować liczbę wywoływania takich błędów, gdyż zwykle przerywają one program 
+Podobnie w Javie możemy otrzymać tzw. _runtime exception_, gdy będziemy chcieli wywołać metodę na nullu:
+```
+Exception in thread "main" java.lang.NullPointerException
+	at Temp.main(Temp.java:9)
+```
+
+Są to błędy (ang. _errors_), które można obsłużyć przede wszystkim poprzez walidację i sanityzację danych. W tych przypadku można byłoby to naprawić choćby rzutowaniem liczba na słowo: `"test" + str(1)` czy też zabezpieczeniu wywołania metody na nully `service?.do()`. Z reguły powinniśmy minimalizować liczbę wywoływania takich błędów, gdyż zwykle przerywają one program 
 
 ### Wyjątki i ich łapanie
 O wiele ciekawszym zagadnieniem są wyjątki (ang. _exceptions_), które z reguły w większości języków programowania można projektować, rzucać oraz łapać.
+
+Projektowanie wyjątków nie różni się za bardzo od projektowania innych klas. Klasy wyjątków muszą implementować interfejs `Throwable` (Java, PHP) lub dziedziczyć po klasie `Exception` (Python, C#, ale też Java i PHP). Wyjątek z reguły powinien nieść ze sobą takie informacje:
+```
+interface Throwable {
+    public String getMessage()
+    public Integer getCode()
+    public String getFile()
+    public Integer getLine()
+    public String[] getTrace()
+    public String getTraceAsString()
+    public ?Throwable getPrevious()
+    public String __toString()
+}
+```
+
+Najważniejszym elementem wyjątku jest przesyłana przez niego wiadomość. Możemy ją zazwyczaj przekazać przez konstruktor (`throw new Expcetion("You are not allowed to be here.)`), ale można ją też zaszyć bezpośrednio w klasie wyjątku (`throw new UnauthorizedException()`). Wyjątki zazwyczaj niosą ze sobą też informacje na temat miejsca, w którym zostały wywołane.
+
+Rzucanie wyjątków (ang. _throwing exceptions_) to korzystanie z odpowiedniego konstruktu języka: `throw` lub `raise`. Rzucony wyjątek przerywa działanie programu i warstwami wywołań obecnej metody wraca do samej "góry" aplikacji. Tutaj pojawia się najważniejsza różnica między błędami i wyjątkami: błąd oznacza faktyczny błąd, natomiast wyjątek może oznaczać zaplanowane zdarzenie, które po prostu powinno zmienić flow programu.
+
+Wyobraźmy sobie kontroler aplikacji internetowej, który musi zwrócić produkt sklepu internetowego na podstawie podanego przez użytkownika adresu. Mogłoby to wyglądać następująco:
+```
+class ProductPageController extends Controller
+{
+    public HttpResponse get(HttpRequest request)
+    {
+        Product product = this.repository.getById(request.get("id"))
+        
+        return this.renderHtml("products/page.html", product)
+    }
+}
+```
+
+Z repozytorium pobieramy produkt na podstawie id z żądania HTTP, a następnie przekazujemy ten produkt do wyrenderowania na stronie. Wygląda to elegancko, ale przecież może się zdarzyć, że zapomnimy przekazać id, że będzie ono czymś innym niż oczekiwaną liczbą albo że produktu o zadanym id nie będzie w bazie. Można byłoby to opisać tak:
+```
+class ProductPageController extends Controller
+{
+    public HttpResponse get(HttpRequest request)
+    {
+        if (Null.isNull(request.get("id")) || !Number.isNumber(request.get("id")) {
+            return this.redirect("errors/400.html)
+        }
+        
+        Product product = this.repository.getById(request.get("id"))
+        
+        if (Null.isNull(product)) {
+            return this.redirect("errors/404.html)
+        }
+        
+        return this.renderHtml("products/page.html", product)
+    }
+}
+```
+
+W przykładzie powyżej tracimy bardzo dużo na czytelności. Programista musi zrozumieć wszystkie ścieżki, chociaż bazowo interesować go powinno tylko pobieranie produktu. Można byłoby oprogramować tylko _happy path_, a obsługę wszystkich błędów przekazać do wyjątków. Takie podejście wymagałoby dodania tzw. handlera wyjątków do aplikacji:
+```
+class ProductPageController extends Controller
+{
+    public HttpResponse get(ValidatedProductPageHttpRequest request)
+    {        
+        Product product = this.repository.getByIdOrFail(request.get("id"))
+                
+        return this.renderHtml("products/page.html", product)
+    }
+}
+```
+
+Taki handler mógłby zbierać konkretne wyjątki i na ich podstawie generować strony błędów. W ten sposób dochodzimy do łapania wyjątków (ang. _catching exceptions_), ponieważ każdy rzucony wyjątek można przechwycić i zablokować wyłączenie się programu. Zazwyczaj realizuje się to konstruktem `try catch`:
+```
+class ProductPageController extends Controller
+{
+    public HttpResponse get(ValidatedProductPageHttpRequest request)
+    {        
+        try {
+            Product product = this.repository.getByIdOrFail(request.get("id"))
+        } catch(ModelNotFoundException exception) {
+            return this.redirect("errors/404.html)
+        }
+        
+        return this.renderHtml("products/page.html", product)
+    }
+}
+```
+
+Świetnym miejscem na zastosowanie `try/catch` będzie właśnie handler wyjątków. Zwróćmy uwagę, że możemy wskazać typ wyjątku, który łapiemy, ale możemy też budować drzewko łapania:
+```
+class ProductPageController extends Controller
+{
+    public HttpResponse get(ValidatedProductPageHttpRequest request)
+    {        
+        try {
+            Product product = this.repository.getByIdOrFail(request.get("id"))
+        } catch(ProductArchivedException exception) {
+            return this.redirect("errors/410.html)
+        } catch(ModelNotFoundException exception) {
+            return this.redirect("errors/404.html)
+        } catch(Throwable exception) {
+            return this.redirect("errors/500.html)
+        }
+        
+        return this.renderHtml("products/page.html", product)
+    }
+}
+```
+
+Z reguły lepiej tworzyć własne wyjątki opisujące zdarzenia niż wykorzystywać bazową klasę `Exception`.
 
 ### Analiza przykładowego zadania
 Zadanie składa się z kilku części: 
