@@ -25,7 +25,7 @@ Exception in thread "main" java.lang.NullPointerException
 	at Temp.main(Temp.java:9)
 ```
 
-Są to błędy (ang. _errors_), które można obsłużyć przede wszystkim poprzez walidację i sanityzację danych. W tych przypadku można byłoby to naprawić choćby rzutowaniem liczba na słowo: `"test" + str(1)` czy też zabezpieczeniu wywołania metody na nully `service?.do()`. Z reguły powinniśmy minimalizować liczbę wywoływania takich błędów, gdyż zwykle przerywają one program 
+Są to błędy (ang. _errors_), które można obsłużyć przede wszystkim poprzez walidację i sanityzację danych. W tych przypadku można byłoby to naprawić choćby rzutowaniem liczba na słowo: `"test" + str(1)` czy też zabezpieczeniu wywołania metody na nully `service?.do()`. Z reguły powinniśmy minimalizować liczbę wywoływania takich błędów, gdyż zwykle przerywają one program.
 
 ### Wyjątki i ich łapanie
 O wiele ciekawszym zagadnieniem są wyjątki (ang. _exceptions_), które z reguły w większości języków programowania można projektować, rzucać oraz łapać.
@@ -155,14 +155,14 @@ Najważniejsze do zrozumienia jest tutaj to, że cała logika poruszania się po
 
 ### Zadanie do wykonania
 Należy przekształcić program zgodnie z następującym opisem:
-* program powinien przyjmować żądania HTTP; mogą być to bardzo uproszczone modele składające się z metody, adresu, tablicy nagłówków (np. `new HttpRequest("get", "/users", ["Auhtorization": "token123"])`)
+* program powinien przyjmować żądania HTTP; mogą być to bardzo uproszczone modele składające się z metody, adresu, tablicy nagłówków (np. `new HttpRequest("get", "/users", ["Authorization": "token123"])`)
 * program powinien przechowywać listę użytkowników
-* program na żądanie `GET /users` bez nagłówka `Auhtorization` powinien zwrócić błąd uwierzytelniania oraz status 401
+* program na żądanie `GET /users` bez nagłówka `Authorization` powinien zwrócić błąd uwierzytelniania oraz status 401
 * program na żądanie `GET /users` powinien zwrócić listę użytkowików oraz status 200
-* program na żądanie `GET /users/1` bez nagłówka `Auhtorization` powinien zwrócić błąd uwierzytelniania oraz status 401
+* program na żądanie `GET /users/1` bez nagłówka `Authorization` powinien zwrócić błąd uwierzytelniania oraz status 401
 * program na żądanie `GET /users/1` (jeżeli użytkownik o id 1 istnieje) powinien zwrócić użytkownika o id 1 oraz status 200
 * program na żądanie `GET /users/1` (jeżeli użytkownik o id 1 nie istnieje) powinien zwrócić błąd odnalezienia użytkownika oraz status 404
-* program na żądanie `DELETE /users/1` bez nagłówka `Auhtorization` powinien zwrócić błąd uwierzytelniania oraz status 401
+* program na żądanie `DELETE /users/1` bez nagłówka `Authorization` powinien zwrócić błąd uwierzytelniania oraz status 401
 * program na żądanie `DELETE /users/1` (jeżeli użytkownik o id 1 istnieje) powinien usunąć użytkownika o id 1 oraz status 200
 * program na żądanie `DELETE /users/1` (jeżeli użytkownik o id 1 nie istnieje) powinien zwrócić błąd odnalezienia użytkownika oraz status 404
 * program na żądanie `GET /whatever` (czyli jakikolwiek inny adres niż `/users`) powinien zwrócić błąd odnalezienia strony oraz status 404
@@ -176,7 +176,7 @@ application.handle(request)
 # Error 401
 # Unauthorized access.
 
-HttpRequest request = new HttpRequest("get", "/users", ["Auhtorization": "token123"])
+HttpRequest request = new HttpRequest("get", "/users", ["Authorization": "token123"])
 application.handle(request)
 # Status 200
 # | 1 | anowak |
@@ -189,12 +189,12 @@ application.handle(request)
 # Error 401
 # Unauthorized access.
 
-HttpRequest request = new HttpRequest("get", "/users/1", ["Auhtorization": "token123"])
+HttpRequest request = new HttpRequest("get", "/users/1", ["Authorization": "token123"])
 application.handle(request)
 # Status 200
 # | 1 | anowak |
 
-HttpRequest request = new HttpRequest("get", "/users/5", ["Auhtorization": "token123"])
+HttpRequest request = new HttpRequest("get", "/users/5", ["Authorization": "token123"])
 application.handle(request)
 # Error 404
 # Model not found.
@@ -204,12 +204,12 @@ application.handle(request)
 # Error 401
 # Unauthorized access.
 
-HttpRequest request = new HttpRequest("delete", "/users/1", ["Auhtorization": "token123"])
+HttpRequest request = new HttpRequest("delete", "/users/1", ["Authorization": "token123"])
 application.handle(request)
 # Status 200
 # User has been deleted
 
-HttpRequest request = new HttpRequest("delete", "/users/1", ["Auhtorization": "token123"])
+HttpRequest request = new HttpRequest("delete", "/users/1", ["Authorization": "token123"])
 application.handle(request)
 # Error 404
 # Model not found.
