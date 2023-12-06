@@ -26,17 +26,90 @@ O wiele ciekawszym zagadnieniem są wyjątki (ang. _exceptions_), które z regu�
 
 ### Analiza przykładowego zadania
 Zadanie składa się z kilku części: 
-* 
+* klasy handlera wyjątków,
+* klasy odczytującej klawiaturę użytkownika,
+* klas wyjątków,
+* głównego programu, gdzie handler i reader są zainicjalizowane i uruchomione w oczekiwaniu na interakcję z użytkownikiem.
 
 Zadanie powinno być zrozumiałe przez wszystkich. Kolejno:
-* 
+* inicjalizowane są klasy `Handler` i `InputReader`
+* a następnie, póki zmienna `on` nie zostanie ustawiona na `false`, klasa odczytująca czeka na interakcję z użytkownikiem;
+* jeżeli użytkownik nic nie wpisze, wyrzucany jest wyjątek `EmptyStringException` i program czeka dalej na użytkownika;
+* jeżeli użytkownik wpisze `:q`, wyrzucany jest wyjątek `ExitCalledException` i program się wyłącza;
+* jeżeli użytkownik wpisze `:w`, wyrzucany jest wyjątek `WriteCalledException` i program się wyłącza z wypisanie wyniku;
+* jeżeli użytkownik wpisze więcej niż jedną literę, wyrzucany jest wyjątek `MultipleCharactersException` i program czeka dalej na użytkownika;
+* jeżeli użytkownik wpisze polski znak, wyrzucany jest wyjątek `ForbiddenCharacterException` i program czeka dalej na użytkownika.
+
+Najważniejsze do zrozumienia jest tutaj to, że cała logika poruszania się po aplikacji została przeniesiona na płaszczyznę wyjątków. To w nich definiowane są wiadomości, które są wyświetlane na interfejsie oraz informacje czy program powinien być kontynuowany po rzuceniu danego wyjątku.
 
 ### Zadanie do wykonania
-Należy rozszerzyć program o następujące funkcjonalności:
-* 
+Należy przekształcić program zgodnie z następującym opisem:
+* program powinien przyjmować żądania HTTP; mogą być to bardzo uproszczone modele składające się z metody, adresu, tablicy nagłówków (np. `new HttpRequest("get", "/users", ["Auhtorization": "token123"])`)
+* program powinien przechowywać listę użytkowników
+* program na żądanie `GET /users` bez nagłówka `Auhtorization` powinien zwrócić błąd uwierzytelniania oraz status 401
+* program na żądanie `GET /users` powinien zwrócić listę użytkowików oraz status 200
+* program na żądanie `GET /users/1` bez nagłówka `Auhtorization` powinien zwrócić błąd uwierzytelniania oraz status 401
+* program na żądanie `GET /users/1` (jeżeli użytkownik o id 1 istnieje) powinien zwrócić użytkownika o id 1 oraz status 200
+* program na żądanie `GET /users/1` (jeżeli użytkownik o id 1 nie istnieje) powinien zwrócić błąd odnalezienia użytkownika oraz status 404
+* program na żądanie `DELETE /users/1` bez nagłówka `Auhtorization` powinien zwrócić błąd uwierzytelniania oraz status 401
+* program na żądanie `DELETE /users/1` (jeżeli użytkownik o id 1 istnieje) powinien usunąć użytkownika o id 1 oraz status 200
+* program na żądanie `DELETE /users/1` (jeżeli użytkownik o id 1 nie istnieje) powinien zwrócić błąd odnalezienia użytkownika oraz status 404
+* program na żądanie `GET /whatever` (czyli jakikolwiek inny adres niż `/users`) powinien zwrócić błąd odnalezienia strony oraz status 404
 
-Nad czym warto się zastanowić?
-* 
+W pseudokodzie mogłoby wyglądać to tak:
+```
+Application application = new Application()
+
+HttpRequest request = new HttpRequest("get", "/users")
+application.handle(request)
+# Error 401
+# Unauthorized access.
+
+HttpRequest request = new HttpRequest("get", "/users", ["Auhtorization": "token123"])
+application.handle(request)
+# Status 200
+# | 1 | anowak |
+# | 2 | bnowak |
+# | 3 | cnowak |
+# | 4 | dnowak |
+
+HttpRequest request = new HttpRequest("get", "/users/1")
+application.handle(request)
+# Error 401
+# Unauthorized access.
+
+HttpRequest request = new HttpRequest("get", "/users/1", ["Auhtorization": "token123"])
+application.handle(request)
+# Status 200
+# | 1 | anowak |
+
+HttpRequest request = new HttpRequest("get", "/users/5", ["Auhtorization": "token123"])
+application.handle(request)
+# Error 404
+# Model not found.
+
+HttpRequest request = new HttpRequest("delete", "/users/1")
+application.handle(request)
+# Error 401
+# Unauthorized access.
+
+HttpRequest request = new HttpRequest("delete", "/users/1", ["Auhtorization": "token123"])
+application.handle(request)
+# Status 200
+# User has been deleted
+
+HttpRequest request = new HttpRequest("delete", "/users/1", ["Auhtorization": "token123"])
+application.handle(request)
+# Error 404
+# Model not found.
+
+HttpRequest request = new HttpRequest("get", "/whatever")
+application.handle(request)
+# Error 404
+# Route not found.
+```
+
+Warto zastanowić się jak oprogramować powyższe polecenia, tak aby tzw. _happy path_ wykonywał się w aplikacji, a obsługa błędów była ujednolicona dla wszystkich metod.
 
 Wykonane zadanie należy dodać do swojego repozytorium w katalogu `lab09`.
 
